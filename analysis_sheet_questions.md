@@ -55,8 +55,16 @@ following questions:
 
 5.  What is the worst sorting algorithm (that has a name)?
 
-    
+    Bogosort is the worst algorithm with a name. The run time is unbounded.
 
 6.  What sort algorithm does the C library use? What sort algorithm does Python use? Are these algorithms stable? You might have to Google around to find these answers.
 
+    "In C programming language, there are multiple sorting algorithms available, which can be incorporated inside the code. The various types of sorting methods possible in the C language are Bubble sort, Selection sort, Quick sort, Merge sort, Heap sort and Insertion sort." 
+
+    "Python's default sort uses Tim Sort, which is a combination of both merge sort and insertion sort."
+
+    Tim sort is stable. The C library also uses stable sort algorithms.
+
 7.  Many of the non-comparison sorts are linear, so why does Python use an $O(n \log n)$ comparison sort?
+
+    It is used because it is capable of handling complex data sets.
