@@ -281,8 +281,10 @@ class Conversion:
 
 if __name__ == "__main__":
     expression = input("Enter a mathematical infix expression: ")
+    print("Prefix:")
     print(infixToPrefix(expression))
     obj = Conversion(len(expression))
+    print("Postfix:")
     print(obj.infixToPostfix(expression))
     root = parse_expression(expression)
     turtle.hideturtle()
