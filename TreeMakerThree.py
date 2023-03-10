@@ -43,25 +43,22 @@ def parse_expression_helper(tokens):
         return left
 
     # Otherwise, parse the operator and the right operand recursively
-    op_token = tokens.pop(0)
-    op_info = operators[op_token]
-    right = parse_expression_helper(tokens)
-
-    # Create a new node for the operator and link it to the left and right operands
-    node = Node(op_info[1])
-    node.left = left
-    node.right = right
-
-    # If the next operator has higher precedence, wrap the right operand in a subtree
-    while tokens and operators.get(tokens[0], (0,))[0] > op_info[0]:
-        right = node
-        op_token = tokens.pop(0)
+    while tokens:
+        op_token = tokens[0]
+        if op_token == ")":
+            return left
         op_info = operators[op_token]
+        if op_info[0] <= operators.get(tokens[1], (0,))[0]:
+            right = parse_expression_helper(tokens[2:])
+        else:
+            tokens.pop(0)
+            right = parse_expression_helper(tokens)
+        # Create a new node for the operator and link it to the left and right operands
         node = Node(op_info[1])
         node.left = left
-        node.right = parse_expression_helper(tokens)
-
-    return node
+        node.right = right
+        left = node
+    return left
 
 def visualize_tree(node, x=0, y=turtle.window_height() / 2, dx=50, dy=50):
     if node.left:
@@ -86,7 +83,6 @@ def visualize_tree(node, x=0, y=turtle.window_height() / 2, dx=50, dy=50):
 if __name__ == "__main__":
     expression = input("Enter a mathematical infix expression: ")
     root = parse_expression(expression)
-    print(root)
     turtle.hideturtle()
     turtle.speed(0)
     visualize_tree(root)
